@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Management.Automation;
 
 namespace ps_from_dnet
 {
@@ -6,7 +8,13 @@ namespace ps_from_dnet
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+          PSCommand psCommand = new PSCommand();
+          psCommand.AddScript("$PSHome");
+          PowerShell ps = PowerShell.Create();
+          ps.Commands = psCommand;
+
+          Collection<PSObject> results = ps.Invoke();
+          Console.WriteLine("results length::" + results.Count);
         }
     }
 }
